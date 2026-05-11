@@ -1,23 +1,16 @@
-# puppet-ansible-demo
-Puppet to Ansible migration demo
-# Puppet → Ansible Migration Demo on AWS
+# Puppet → Ansible Migration Demo
 
-This repository demonstrates how to migrate from **Puppet** to **Ansible** using AWS EC2 instances.  
-It shows Puppet managing a server first, then Ansible taking over, and finally how Ansible can auto‑configure new servers using `ansible-pull`.
+This repo shows how to migrate from Puppet to Ansible on AWS EC2.
 
----
+## Structure
+- puppet/apache.pp → Puppet manifest
+- ansible/site.yml → Ansible playbook
+- ansible/hosts.ini → Inventory file
+- ansible/roles/apache/tasks/main.yml → Role tasks
+- bootstrap/user-data.sh → EC2 user-data script
 
-## 📂 Repository Structure
-
-puppet-ansible-demo/
-├── puppet/
-│   ├── apache.pp
-│   └── README.md
-├── ansible/
-│   ├── site.yml
-│   ├── hosts.ini
-│   └── roles/
-│       └── apache/
-│           └── tasks/main.yml
-└── bootstrap/
-    └── user-data.sh
+## Demo Flow
+1. Run Puppet manifest on EC2.
+2. Stop Puppet agent.
+3. Run Ansible playbook from control node.
+4. Launch new EC2 with user-data → auto-configures via Ansible.
