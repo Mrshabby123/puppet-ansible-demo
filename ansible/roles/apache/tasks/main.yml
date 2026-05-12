@@ -1,11 +1,16 @@
 ---
-- name: Install Apache
-  ansible.builtin.package:
-    name: apache2
+- name: Install IIS Web Server
+  ansible.windows.win_feature:
+    name: Web-Server
     state: present
 
-- name: Ensure Apache is running
-  ansible.builtin.service:
-    name: apache2
+- name: Ensure IIS service is running
+  ansible.windows.win_service:
+    name: W3SVC
     state: started
-    enabled: true
+    start_mode: auto
+
+- name: Create a default web page
+  ansible.windows.win_copy:
+    content: "<h1>Welcome to IIS - Managed by Ansible</h1>"
+    dest: "C:\\inetpub\\wwwroot\\index.html"
