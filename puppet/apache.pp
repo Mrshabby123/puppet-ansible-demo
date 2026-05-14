@@ -1,10 +1,18 @@
-class apache {
-  package { 'apache2':
-    ensure => installed,
+class iis {
+  package { 'Web-Server':
+    ensure   => present,
+    provider => windowsfeature,
   }
 
-  service { 'apache2':
+  service { 'W3SVC':
     ensure => running,
     enable => true,
   }
+
+  file { 'C:/inetpub/wwwroot/index.html':
+    ensure  => file,
+    content => '<h1>Welcome to IIS - Managed by Puppet</h1>',
+  }
 }
+
+include iis
